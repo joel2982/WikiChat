@@ -1,0 +1,15 @@
+SQLAlchemy
+langchain
+python-dotenv
+streamlit
+faiss-cpu
+altair
+OpenAI
+tiktoken
+streamlit-extras
+streamlit-modal
+mysql-connector-python
+beautifulsoup4
+mysqlclient
+pypyodbc
+pycocotools
