@@ -22,6 +22,7 @@ host = st.secrets["HOST"]
 user = st.secrets["USER"]
 password = st.secrets["PASSWORD"]
 database = st.secrets["DATABASE"]
+port = st.secrets["PORT"]
 
 # load_dotenv()
 # host = os.getenv("HOST")
@@ -34,9 +35,10 @@ database = st.secrets["DATABASE"]
 
 config = {
     'host':host,
+    'port' :port,
     'user':user,
     'password':password,
-    'database':database    
+    'database':database   
 }
 chatdb = mysql.connector.connect(**config)
 
