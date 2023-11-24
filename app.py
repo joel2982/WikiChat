@@ -18,19 +18,19 @@ from langchain.schema.messages import HumanMessage, AIMessage
 import mysql.connector
 
 OPENAI_API_KEY=st.secrets['OPENAI_API_KEY']
-host = st.secrets("HOST")
-user = st.secrets("USER")
-password = st.secrets("PASSWORD")
-database = st.secrets("DATABASE")
+host = st.secrets["HOST"]
+user = st.secrets["USER"]
+password = st.secrets["PASSWORD"]
+database = st.secrets["DATABASE"]
 
-load_dotenv()
-host = os.getenv("HOST")
-driver = os.getenv("DRIVER")
-user = os.getenv("USER")
-password = os.getenv("PASSWORD")
-database = os.getenv("DATABASE")
-server = os.getenv("SERVER")
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+# load_dotenv()
+# host = os.getenv("HOST")
+# driver = os.getenv("DRIVER")
+# user = os.getenv("USER")
+# password = os.getenv("PASSWORD")
+# database = os.getenv("DATABASE")
+# server = os.getenv("SERVER")
+# OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 config = {
     'host':host,
