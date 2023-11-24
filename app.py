@@ -9,7 +9,6 @@ from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import faiss
 from langchain.chains import ConversationalRetrievalChain
 from langchain.memory import ConversationBufferMemory
-# import pypyodbc as odbc
 import MySQLdb
 from langchain.chat_models import ChatOpenAI
 from streamlit_modal import Modal
@@ -117,8 +116,7 @@ def retrieve_messages(cmd):
         if i%2 == 0:
             messages[i] = messages[i].replace('umanMessage(content=\'','')
             messages[i] = messages[i][0:-1]
-            chats.append(HumanMessage(content=messages[i]))
-            
+            chats.append(HumanMessage(content=messages[i]))   
         else:
             messages[i] = messages[i].replace('IMessage(content=\'','')
             messages[i] = messages[i][0:-1]
@@ -159,9 +157,6 @@ def handle_user_input(user_question):
         sql_cmd = f"SELECT id FROM chat_history WHERE title = '{title}'"
         select_cursor.execute(sql_cmd)
         st.session_state.current_chat = select_cursor.fetchone()
-        st.write(st.session_state.current_chat)
-
-
 
 def previous_chat_loader(chat):
     # retrieving chat id, chat history and the pdf name
@@ -175,7 +170,6 @@ def previous_chat_loader(chat):
     select_cursor.execute(sql_cmd)  
     st.session_state.url = select_cursor.fetchone()[0]
 
-
 def main():
     load_dotenv()
     st.set_page_config(page_title='Chat with Wikipedia',page_icon=':globe_with_meridians:',initial_sidebar_state='collapsed')
@@ -183,17 +177,17 @@ def main():
     select_cursor = chatdb.cursor()
     select_cursor.execute("SELECT title FROM chat_history")
     chat_titles = retrieve_names(select_cursor)
-    open_modal = None
-    placeholder = st.empty()
     new_session_state()
-    if 'chathistory' not in st.session_state:
+    open_modal = None
+    if st.session_state.chat_history == None:
         st.subheader('Chat with the Wikipedia :globe_with_meridians:')
     else:
         col1, col2 = st.columns([0.8,0.2])
         with col1:
             st.subheader('Chat with the Wikipedia :globe_with_meridians:')
         with col2:
-            open_modal = st.button('Wiki Page',use_container_width=True) 
+            open_modal = st.button('Wiki Page') 
+    placeholder = st.empty()
     # URL reciever
     if not st.session_state.url:
         with placeholder.form("my-form"):
@@ -217,6 +211,7 @@ def main():
         except:
             # Error occurs if a valid URL is not given          
             st.write(bot_template.replace("{{MSG}}","Please insert a valid URL."), unsafe_allow_html=True)
+
     with st.sidebar:
         col1, col2 = st.columns(2)
         with col1:
@@ -232,6 +227,7 @@ def main():
                 new_session_state()
                 st.empty()
                 previous_chat_loader(chat)
+                st.rerun()
         add_vertical_space(2)
         st.write('Made with by [Joel John](https://www.linkedin.com/in/joeljohn29082002/)')
 
