@@ -9,7 +9,6 @@ from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import faiss
 from langchain.chains import ConversationalRetrievalChain
 from langchain.memory import ConversationBufferMemory
-import MySQLdb
 from langchain.chat_models import ChatOpenAI
 from streamlit_modal import Modal
 from chatui import css,user_template,bot_template
