@@ -16,11 +16,13 @@ from chatui import css,user_template,bot_template
 from streamlit_extras.add_vertical_space import add_vertical_space
 from langchain.schema.messages import HumanMessage, AIMessage
 
-# OPENAI_API_KEY=st.secrets['OPENAI_API_KEY']
-# host = st.secrets("HOST")
-# user = st.secrets("USER")
-# password = st.secrets("PASSWORD")
-# database = st.secrets("DATABASE")
+import mysql.connector
+
+OPENAI_API_KEY=st.secrets['OPENAI_API_KEY']
+host = st.secrets("HOST")
+user = st.secrets("USER")
+password = st.secrets("PASSWORD")
+database = st.secrets("DATABASE")
 
 load_dotenv()
 host = os.getenv("HOST")
@@ -37,7 +39,7 @@ config = {
     'password':password,
     'database':database    
 }
-chatdb = MySQLdb.connect(**config)
+chatdb = mysql.connector.connect(**config)
 
 def new_session_state():
     if 'current_chat' not in st.session_state:
