@@ -33,14 +33,13 @@ port = st.secrets["PORT"]
 # server = os.getenv("SERVER")
 # OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-config = {
+chatdb = mysql.connector.connect(
     'host':host,
     'port' :port,
     'user':user,
     'password':password,
-    'database':database   
-}
-chatdb = mysql.connector.connect(**config)
+    'database':database 
+)
 
 def new_session_state():
     if 'current_chat' not in st.session_state:
